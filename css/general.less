@@ -85,9 +85,18 @@ main{
     section#map{
         height: calc(100vh - @header-height - @footer-height);
         background-color: @cinza;
+        background-image: url(../img/map.png);
+        background-position: 50% 50%;
+        background-size: 150% auto;
+        background-repeat: no-repeat;
         overflow: hidden;
         flex: 2;
-    } 
+    }
+    @media @tablet-down{
+        section#map{
+            background-size: auto 150%;
+       } 
+    }
     section#action-set{
         height: @footer-height;
         background-color: #fff;

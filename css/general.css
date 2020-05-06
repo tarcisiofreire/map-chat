@@ -61,8 +61,17 @@ header .logo img {
 main section#map {
   height: calc(100vh - 78px - 100px);
   background-color: #585858;
+  background-image: url(../img/map.png);
+  background-position: 50% 50%;
+  background-size: 150% auto;
+  background-repeat: no-repeat;
   overflow: hidden;
   flex: 2;
+}
+@media (max-width: 767px) {
+  main section#map {
+    background-size: auto 150%;
+  }
 }
 main section#action-set {
   height: 100px;
