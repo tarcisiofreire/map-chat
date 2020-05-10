@@ -1,5 +1,5 @@
 //variables
-@azul-correios:#020742;
+@azul-correios:#006699;
 @cinza:#585858;
 @header-height: 78px;
 @footer-height: 100px;
@@ -7,13 +7,17 @@
 //Media
 @wide-screen-down: ~'(max-width: 1199px)';
 @desktop-down: ~'(max-width: 991px)';
+@desktop-up: ~'(min-width: 768px)';
 @tablet-down: ~'(max-width: 767px)';
 @phone-down: ~'(max-width: 480px)';
 @small-phone-down: ~'(max-width: 320px)';
 
 
 //General
-*{
+*,
+*::after,
+*::before
+{
     box-sizing: border-box;
 }
 html, body{
@@ -25,7 +29,7 @@ html, body{
 }
 
 img{
-    width: 100%;
+
 }
 
 //Layout
@@ -48,42 +52,53 @@ img{
         margin: 0 0.15rem 0 0.15rem;
     }
 }
+.wrap-content{
+    height: 100vh;
+}
 header{
-    padding: 1rem;
     margin: 0;
-    height: @header-height;
+    height: 7%;
+    min-height: 60px;
+    display: flex;
+    padding: 1rem 2rem;
+    justify-content: space-between;
+    @media @tablet-down{
+        padding: 1rem;
+    }
 
     hgroup{
         h1{
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            color:@azul-correios;   
+            color:@azul-correios;
+            @media @tablet-down{
+                font-size: 1rem;
+            }   
         }
         h2{
-            font-size:1rem;
+            font-size:0.9rem;
             color: @cinza;
             margin-top: 0.3rem;
+            @media @tablet-down{
+                font-size: 0.8rem;
+            }   
         }
     }
     .logo{
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
+        height: 100%;
+        display: inline-block;
     }
     .logo img{
-        width: 10rem;
-
+        height: 100%;
     }
-    position: -webkit-sticky;
     background-color: #fff;
-    position: sticky;
-    top:0;
     #shadow
 }
 
 main{
+    height: 93%;
     section#map{
-        height: calc(100vh - @header-height - @footer-height);
+        height: 100%;
         background-color: @cinza;
         background-image: url(../img/map.png);
         background-position: 50% 50%;
@@ -98,87 +113,157 @@ main{
        } 
     }
     section#action-set{
-        height: @footer-height;
+        height: 7%;
         background-color: #fff;
+        position: fixed;
+        bottom:0;
+        width: 100%;
         flex: 1;
-        #shadow
-    }
-    section#chat{
-        height: calc(100vh - @header-height - @footer-height);
-        display: none;
-        .main-discussion{
-            overflow-y: scroll;
-            height: calc(100vh - @header-height - 2*@footer-height);
-            padding: 1rem;
-            dl{
-                display: flex;
-                flex-direction: column;
-                dd{
-                    display: block;
-                    display: flex;
-                    span{
-                        margin: 0.25rem;
-                        padding: 1rem;
-                        color: #fff;
-                        min-width: 1rem;
-                        line-height: 1.5rem;
-                        
-                        .time{
-                            font-size: 0.8rem;
-                            margin:-0.3rem;
-                        }
-                    }
-                    &.consumer{
-                        justify-content: flex-end;
-                        span{
-                            background-color: rgb(10, 108, 189);
-                            border-radius: 0.7rem 0 0.7rem 0.7rem;
-                            margin-left: 4rem;
-                            text-align: right;
-                            right: 0;
-                        } 
-                    }
-                    &.deliver {
-                        span{
-                            background-color: rgb(0, 5, 78);
-                            border-radius: 0 0.7rem 0.7rem 0.7rem;
-                            margin-right: 4rem;
-                        }
+        animation: slide-to-map 1s forwards;
+        transition: width 1s;
+        overflow: hidden;
+        //  #shadow
+        section#deliver{
+            padding: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            height: 100%;
+            .badge{
+                border-radius: 50%;
+                left:1rem;
+                img{
+                    height: 100%;
+                    @media @tablet-down{
+                        height: 90%;
                     }
                 }
             }
-            #shadow-chat   
+
+            dl{
+                padding: 0 0 0 4rem;
+                display: inline-block;
+                dt{
+                    font-weight: bold;
+                    color: @cinza;
+                    font-size: 1.1rem;
+                }
+                dd, dt{
+                    padding: 0.1rem;
+                }            
+        
+            }
+            @media @tablet-down{
+                dl{
+                    padding: 0 0 0 3rem;
+                    dt{
+                        font-size: 0.9rem;
+                        h1.name{font-weight: 900}
+        
+                    }
+                    dd{font-size: 0.8rem;}
+                }
+            }
+            nav{
+                height: 100%;
+                button.bt-contact{
+                    background-image: url("../img/chat.svg");
+                    background-repeat: no-repeat;
+                    background-size: auto;
+                    background-position: 50% 50%;
+                    width: 3rem;
+                    height: 100%;
+                    background-color: transparent;
+                    border: none;
+                    padding: unset;
+                    
+                }
+            }
+        
         }
-        .input-section{
-            padding: 1rem;
-            display: flex;
-            height: @footer-height;
-            textarea{
-                padding: 0.5rem;
-                border-radius: 0.3rem;
-                border: 1px solid #d4d4d4;
-                width: 100%;
-                #shadow
+        section#chat{
+            height: 100%;
+            .main-discussion{
+                overflow-y: scroll;
+                height: 80%;
+                padding: 1rem;
+                dl{
+                    display: flex;
+                    flex-direction: column;
+                    dd{
+                        display: block;
+                        display: flex;
+                        span{
+                            margin: 0.25rem;
+                            padding: 1rem;
+                            color: #fff;
+                            min-width: 1rem;
+                            line-height: 1.5rem;
+                            
+                            .time{
+                                font-size: 0.8rem;
+                                margin:-0.3rem;
+                            }
+                        }
+                        &.consumer{
+                            justify-content: flex-end;
+                            span{
+                                background-color: rgb(10, 108, 189);
+                                border-radius: 0.7rem 0 0.7rem 0.7rem;
+                                margin-left: 4rem;
+                                text-align: right;
+                                right: 0;
+                            } 
+                        }
+                        &.deliver {
+                            span{
+                                background-color: rgb(0, 5, 78);
+                                border-radius: 0 0.7rem 0.7rem 0.7rem;
+                                margin-right: 4rem;
+                            }
+                        }
+                    }
+                }
+                #shadow-chat   
+            }
+            .input-section{
+                padding: 1rem;
+                display: flex;
+                height:12%;
+                textarea{
+                    padding: 0.5rem;
+                    border-radius: 0.3rem;
+                    border: 1px solid #d4d4d4;
+                    width: 100%;
+                    #shadow
+                }
             }
         }
+
     }
     &.chat-activated{
         display: flex;
         flex-direction: row;
-        section#chat{
-            display: block;
+        section#action-set{
+            height: 100%;
+            animation: slide-to-chat 1.2s forwards;
+            section#deliver{
+                height: 7%;
+            }
+            section#chat{
+                display: block;
+            }
         }
         @media @tablet-down{
             display: block;
             section#action-set{
-                position: absolute;
+                height: 90%;
                 border-radius: 0.3rem 0.3rem 0 0;
                 height: auto;
-                top: @footer-height+20rem;
+                width: auto;
                 margin: 0 0.7rem 0 0.7rem;
                 background-color: #fff;
                 .main-discussion{
-                    height: calc(100vh - @header-height - 2.5*@footer-height);
+                    height: 60%;
                 }
                 #shadow
             }    
@@ -186,33 +271,68 @@ main{
     }
 }
 
-section#deliver{
-    padding: 1rem;
 
-    .badge{
-        background-color: @azul-correios;
-        display: inline-block;
-        height: 60px;
-        width: 60px;
-        border-radius: 50%;
-    }
-    dl{
-        padding: 0 0 0 1rem;
-        display: inline-block;
-        dt{
-            font-weight: bold;
-            color: @cinza;
-            font-size: 1.3rem;
+//Animations
+@media @desktop-up{
+    @keyframes slide-to-chat {
+        0% {
         }
-        dd, dt{
-            padding: 0.1rem;
-        }            
-
+        50% {
+            height: 0%;
+            position: fixed;
+        }
+        51% {
+            flex: 0.00001;
+            position: relative;
+        }
+        100% {
+            position: relative;
+            flex: 1;
+        }
     }
-    nav{
-        display: inline-block;
-        position: absolute;
-        right: 1rem;
-        height: calc(@footer-height - 2rem);
+    @keyframes slide-to-map {
+        0% {
+            height: 0%;
+            position: relative;
+            flex: 1;
+        }
+        50% {
+            flex:0.00001;
+            position: relative;
+        }
+        51% {
+            
+        }
+        100% {
+            position:fixed;
+            height: 7%;
+        }
+    }
+}
+@media @tablet-down{
+    @keyframes slide-to-chat {
+        0% {
+            height: 7%;
+        }
+        50% {
+        }
+        51% {
+        }
+        100% {
+            height: 90%;
+        }
+    }
+    @keyframes slide-to-map {
+        0% {
+            height: 90%;
+        }
+        50% {
+        }
+        51% {
+            
+        }
+        100% {
+            height: 7%;
+        }
     }
 }
