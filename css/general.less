@@ -115,8 +115,7 @@ main{
         bottom:0;
         width: 100%;
         flex: 1;
-        animation: slide-to-map 1s forwards;
-        transition: width 1s;
+        animation: slide-on-load 1s forwards;
         overflow: hidden;
         //  #shadow
         section#deliver{
@@ -238,13 +237,11 @@ main{
     &.chat-activated{
         display: flex;
         flex-direction: row;
+        animation: slide-container-to-chat 0.6 forwards;
         section#action-set{
             animation: slide-to-chat 1.2s forwards;
             section#deliver{
                 height: 7%;
-            }
-            section#chat{
-                display: block;
             }
         }
         @media @tablet-down{
@@ -265,6 +262,13 @@ main{
     }
     &.chat-deactivated{
 
+        section#action-set{
+            animation: slide-to-map 1.2s forwards;
+            section#deliver{
+                height: 100%;
+            }
+        }
+
     }
 }
 
@@ -273,6 +277,8 @@ main{
 @media @desktop-up{
     @keyframes slide-to-chat {
         0% {
+            height: 7%;
+            position: fixed;
         }
         50% {
             height: 0%;
@@ -291,19 +297,30 @@ main{
     }
     @keyframes slide-to-map {
         0% {
-            height: 0%;
+            height: 100%;
             position: relative;
             flex: 1;
         }
         50% {
-            flex:0.00001;
+            height: 100%;
+            flex: 0.00001;
             position: relative;
         }
         51% {
-            
+            height: 0%;
+            position: fixed;
         }
         100% {
-            position:fixed;
+            height: 7%;
+            position: fixed;
+        }
+    }
+    @keyframes slide-on-load {
+        0% {
+            height: 0%;
+            position: relative;
+        } 
+        100% {
             height: 7%;
         }
     }
@@ -321,7 +338,7 @@ main{
             height: 87%;
         }
     }
-    @keyframes slide-to-map {
+    @keyframes slide-on-load {
         0% {
             height: 87%;
         }

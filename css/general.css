@@ -99,8 +99,7 @@ main section#action-set {
   bottom: 0;
   width: 100%;
   flex: 1;
-  animation: slide-to-map 1s forwards;
-  transition: width 1s;
+  animation: slide-on-load 1s forwards;
   overflow: hidden;
 }
 main section#action-set section#deliver {
@@ -225,15 +224,13 @@ main section#action-set section#chat .input-section textarea {
 main.chat-activated {
   display: flex;
   flex-direction: row;
+  animation: slide-container-to-chat 0.6 forwards;
 }
 main.chat-activated section#action-set {
   animation: slide-to-chat 1.2s forwards;
 }
 main.chat-activated section#action-set section#deliver {
   height: 7%;
-}
-main.chat-activated section#action-set section#chat {
-  display: block;
 }
 @media (max-width: 767px) {
   main.chat-activated {
@@ -256,8 +253,18 @@ main.chat-activated section#action-set section#chat {
     height: 60%;
   }
 }
+main.chat-deactivated section#action-set {
+  animation: slide-to-map 1.2s forwards;
+}
+main.chat-deactivated section#action-set section#deliver {
+  height: 100%;
+}
 @media (min-width: 768px) {
   @keyframes slide-to-chat {
+    0% {
+      height: 7%;
+      position: fixed;
+    }
     50% {
       height: 0%;
       position: fixed;
@@ -275,16 +282,30 @@ main.chat-activated section#action-set section#chat {
   }
   @keyframes slide-to-map {
     0% {
-      height: 0%;
+      height: 100%;
       position: relative;
       flex: 1;
     }
     50% {
+      height: 100%;
       flex: 0.00001;
       position: relative;
     }
-    100% {
+    51% {
+      height: 0%;
       position: fixed;
+    }
+    100% {
+      height: 7%;
+      position: fixed;
+    }
+  }
+  @keyframes slide-on-load {
+    0% {
+      height: 0%;
+      position: relative;
+    }
+    100% {
       height: 7%;
     }
   }
@@ -298,7 +319,7 @@ main.chat-activated section#action-set section#chat {
       height: 87%;
     }
   }
-  @keyframes slide-to-map {
+  @keyframes slide-on-load {
     0% {
       height: 87%;
     }
