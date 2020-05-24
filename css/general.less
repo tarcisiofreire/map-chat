@@ -28,10 +28,6 @@ html, body{
     margin: 0;
 }
 
-img{
-
-}
-
 //Layout
 #shadow(){
     -webkit-box-shadow: inset 1px -3px 19px -3px rgba(79,79,79,0.18);
@@ -238,13 +234,11 @@ main{
                 }
             }
         }
-
-    }
+    }    
     &.chat-activated{
         display: flex;
         flex-direction: row;
         section#action-set{
-            height: 100%;
             animation: slide-to-chat 1.2s forwards;
             section#deliver{
                 height: 7%;
@@ -256,7 +250,7 @@ main{
         @media @tablet-down{
             display: block;
             section#action-set{
-                height: 90%;
+                height: 80%;
                 border-radius: 0.3rem 0.3rem 0 0;
                 height: auto;
                 width: auto;
@@ -268,6 +262,9 @@ main{
                 #shadow
             }    
         }
+    }
+    &.chat-deactivated{
+
     }
 }
 
@@ -282,10 +279,12 @@ main{
             position: fixed;
         }
         51% {
+            height: 100%;
             flex: 0.00001;
             position: relative;
         }
         100% {
+            height: 100%;
             position: relative;
             flex: 1;
         }
@@ -319,12 +318,12 @@ main{
         51% {
         }
         100% {
-            height: 90%;
+            height: 87%;
         }
     }
     @keyframes slide-to-map {
         0% {
-            height: 90%;
+            height: 87%;
         }
         50% {
         }
